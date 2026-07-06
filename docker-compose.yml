@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: brokercloud_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      # As variáveis do seu .env entrarão aqui na build, ou podem ser injetadas
+      - DATABASE_URL=postgresql://postgres:brokercloud_secure_pwd@db:5432/brokercloud?schema=public
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - broker_net
+
+  db:
+    image: postgres:15-alpine
+    container_name: brokercloud_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: brokercloud_secure_pwd
+      POSTGRES_DB: brokercloud
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - broker_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: brokercloud_redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redisdata:/data
+    networks:
+      - broker_net
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  broker_net:
+    driver: bridge

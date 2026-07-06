@@ -1,0 +1,183 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Broker {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  phone          String?
+  monthlyGoal    Float?   @default(100000)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Auth
+  passwordHash         String?
+  resetPasswordToken   String?   @unique
+  resetPasswordExpires DateTime?
+  planId               String    @default("TRIAL") // TRIAL, BASIC, PREMIUM
+  trialEndsAt          DateTime?
+
+  // Stripe
+  stripeCustomerId       String?
+  stripeSubscriptionId   String?
+  stripePriceId          String?
+  stripeCurrentPeriodEnd DateTime?
+
+  // Relações
+  properties     Property[]
+  leads          Lead[]
+  tasks          Task[]
+  transactions   Transaction[]
+  fixedExpenses  FixedExpense[]
+  whatsappInstances WhatsAppInstance[]
+}
+
+model Property {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  price       Float
+  commission  Float?   // Valor da comissão em R$
+  location    String?
+  bedrooms    Int      @default(0)
+  area        Float    @default(0)
+  imageUrl    String?
+  galleryUrls String?  // JSON string com array de URLs adicionais
+  videoUrl    String?  // Link do YouTube/Drive
+  status      String   @default("AVAILABLE") // AVAILABLE, SOLD, HIGHLIGHT
+  
+  brokerId    String
+  broker      Broker   @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+  
+  tasks       Task[]
+  leads       Lead[]
+  transactions Transaction[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  status      String   @default("CAPTURE") // CAPTURE, VISIT, PROPOSAL, CLOSED
+  notes       String?
+  aiSummary   String?
+  profilePictureUrl String?
+  unreadCount Int      @default(0)
+  
+  brokerId    String
+  broker      Broker   @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+  
+  propertyId  String?
+  property    Property? @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+
+  whatsappInstanceId String?
+  whatsappInstance   WhatsAppInstance? @relation(fields: [whatsappInstanceId], references: [id], onDelete: SetNull)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages    Message[]
+  tasks       Task[]
+  transactions Transaction[]
+
+  // Relação inversa do lado da Property (não é necessário adicionar @relation aqui se usou no Lead, mas precisamos adicionar leads Property[] no model Property se não estiver lá)
+
+  @@unique([phone, brokerId])
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  whatsappId  String   @unique // ID real da mensagem no WhatsApp para evitar duplicidade
+  body        String?
+  mediaUrl    String?
+  mediaType   String?  // IMAGE, AUDIO, DOCUMENT
+  fromMe      Boolean  @default(false)
+  timestamp   DateTime @default(now())
+  
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  type        String   @default("OTHER") // VISIT, CALL, MESSAGE, MEETING, OTHER
+  dueDate     DateTime
+  status      String   @default("PENDING") // PENDING, COMPLETED, CANCELED
+  
+  leadId      String?
+  lead        Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  
+  propertyId  String?
+  property    Property? @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  
+  brokerId    String
+  broker      Broker   @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  type        String   // INCOME, EXPENSE
+  amount      Float
+  description String
+  date        DateTime
+  status      String   @default("PENDING") // PENDING, COMPLETED, CANCELED
+  category    String   @default("OUTROS") // MARKETING, PORTAIS, COMISSAO, TRANSPORTE, OUTROS
+
+  brokerId    String
+  broker      Broker   @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+
+  propertyId  String?
+  property    Property? @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+
+  leadId      String?
+  lead        Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FixedExpense {
+  id          String   @id @default(cuid())
+  description String
+  amount      Float
+  category    String   @default("OUTROS") // MARKETING, PORTAIS, COMISSAO, TRANSPORTE, OUTROS
+
+  brokerId    String
+  broker      Broker   @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model WhatsAppInstance {
+  id             String   @id @default(cuid())
+  name           String   // Nome fantasia (ex: "WhatsApp Pessoal", "Atendimento VIP")
+  instanceName   String   @unique // Nome interno na Evolution API (ex: broker-123-inst-abc)
+  instanceToken  String
+  qrCode         String?
+  status         String   @default("DISCONNECTED") // CONNECTED, DISCONNECTED, QR_READY
+  
+  brokerId       String
+  broker         Broker   @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+
+  leads          Lead[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
