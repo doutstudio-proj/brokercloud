@@ -56,6 +56,14 @@ function createIoRedisAdapter(url: string) {
       return client.eval(script, keys.length, ...keys, ...args);
     },
 
+    // Executa script Lua otimizado (evalsha - exigido pelas novas versões do ratelimit)
+    async evalsha(
+      sha: string,
+      { keys = [], arguments: args = [] }: { keys?: string[]; arguments?: string[] }
+    ) {
+      return client.evalsha(sha, keys.length, ...keys, ...args);
+    },
+
     // Leitura de chave simples
     async get(key: string) {
       return client.get(key);
