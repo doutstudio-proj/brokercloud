@@ -1039,7 +1039,7 @@ export default function ChatPage() {
             <div className="w-24 h-24 bg-gray-100 dark:bg-surface-container-high border border-gray-200 dark:border-outline-variant rounded-full flex items-center justify-center shadow-sm mb-6">
               <UserCircle2 className="w-12 h-12 text-[var(--color-primary)]" />
             </div>
-            <h2 className="font-display-lg text-[var(--color-on-surface)] mb-4 text-3xl">Brokerfield Chat</h2>
+            <h2 className="font-display-lg text-[var(--color-on-surface)] mb-4 text-3xl">Brokercloud Chat</h2>
             <p className="font-body-md text-[var(--color-on-surface-variant)] max-w-md">Selecione um contato na barra lateral para visualizar o histórico e enviar mensagens integradas ao seu WhatsApp.</p>
           </div>
         )}

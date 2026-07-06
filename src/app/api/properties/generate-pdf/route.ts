@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
     // Logo / Header Bar
     doc.rect(0, 0, 595, 80).fill('#1a1a2e');
-    doc.fontSize(28).fillColor('#ffffff').text('Brokerfield', 50, 25, { align: 'center' });
+    doc.fontSize(28).fillColor('#ffffff').text('Brokercloud', 50, 25, { align: 'center' });
     
     // reset cursor Y position
     doc.y = 100;
@@ -124,7 +124,7 @@ export async function POST(request: Request) {
         if (gallery.length > 0) {
           doc.addPage();
           doc.rect(0, 0, 595, 80).fill('#1a1a2e');
-          doc.fontSize(28).fillColor('#ffffff').text('Brokerfield', 50, 25, { align: 'center' });
+          doc.fontSize(28).fillColor('#ffffff').text('Brokercloud', 50, 25, { align: 'center' });
           
           doc.y = 110;
           doc.fontSize(20).fillColor('#1e293b').text('Galeria de Fotos', 50, doc.y, { align: 'center' });
@@ -142,7 +142,7 @@ export async function POST(request: Request) {
                 if (y + imageSize > 750) {
                   doc.addPage();
                   doc.rect(0, 0, 595, 80).fill('#1a1a2e');
-                  doc.fontSize(28).fillColor('#ffffff').text('Brokerfield', 50, 25, { align: 'center' });
+                  doc.fontSize(28).fillColor('#ffffff').text('Brokercloud', 50, 25, { align: 'center' });
                   x = 50;
                   y = 110;
                 }
@@ -178,7 +178,7 @@ export async function POST(request: Request) {
     for (let i = 0; i < pages.count; i++) {
       doc.switchToPage(i);
       doc.rect(0, 800, 595, 42).fill('#f1f5f9');
-      doc.fontSize(10).fillColor('#64748b').text(`Apresentação gerada automaticamente pela Plataforma Brokerfield - Página ${i + 1} de ${pages.count}`, 0, 815, { align: 'center' });
+      doc.fontSize(10).fillColor('#64748b').text(`Apresentação gerada automaticamente pela Plataforma Brokercloud - Página ${i + 1} de ${pages.count}`, 0, 815, { align: 'center' });
     }
 
     // Finalize

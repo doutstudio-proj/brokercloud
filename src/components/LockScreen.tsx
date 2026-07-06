@@ -35,7 +35,7 @@ export function LockScreen() {
         </div>
         <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Tempo Esgotado</h2>
         <p className="text-blue-200 mb-12 text-lg max-w-2xl leading-relaxed">
-          Seu período de testes de 3 dias chegou ao fim. Para continuar usando o Brokerfield, organizar seu WhatsApp e automatizar suas vendas, assine um de nossos planos.
+          Seu período de testes de 3 dias chegou ao fim. Para continuar usando o Brokercloud, organizar seu WhatsApp e automatizar suas vendas, assine um de nossos planos.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 w-full text-left">

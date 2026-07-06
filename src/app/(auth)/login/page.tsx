@@ -175,7 +175,7 @@ export default function LoginPage() {
           >
             <Building2 size={20} color="#8ad7a2" />
           </div>
-          <span className="text-white font-bold text-xl tracking-tight">Brokerfield</span>
+          <span className="text-white font-bold text-xl tracking-tight">Brokercloud</span>
         </div>
 
         {/* Headline central */}
@@ -254,7 +254,7 @@ export default function LoginPage() {
           >
             <Building2 size={18} color="white" />
           </div>
-          <span className="text-gray-900 font-bold text-lg">Brokerfield</span>
+          <span className="text-gray-900 font-bold text-lg">Brokercloud</span>
         </div>
 
         <div className="w-full max-w-[400px]">

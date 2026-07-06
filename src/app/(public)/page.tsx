@@ -7,8 +7,8 @@ export default function LandingPage() {
       <header className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-[40px] border-b border-glass-border shadow-sm">
         <nav className="flex justify-between items-center px-4 md:px-10 py-4 max-w-7xl mx-auto">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo1.png" alt="Brokerfield Logo" className="h-10 w-auto object-contain" />
-            <span className="font-display-lg text-2xl font-extrabold text-primary">Brokerfield</span>
+            <img src="/logo1.png" alt="Brokercloud Logo" className="h-10 w-auto object-contain" />
+            <span className="font-display-lg text-2xl font-extrabold text-primary">Brokercloud</span>
           </Link>
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8">
@@ -202,7 +202,7 @@ export default function LandingPage() {
         <section className="py-24 px-4 md:px-10 bg-primary text-on-primary text-center">
           <div className="max-w-3xl mx-auto space-y-8">
             <h2 className="font-display-lg text-4xl md:text-5xl font-extrabold">Pronto para elevar o nível das suas vendas?</h2>
-            <p className="font-body-lg text-lg opacity-90">Junte-se a mais de 5.000 corretores que já automatizaram seu sucesso com Brokerfield.</p>
+            <p className="font-body-lg text-lg opacity-90">Junte-se a mais de 5.000 corretores que já automatizaram seu sucesso com Brokercloud.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link href="/login?tab=register" className="bg-primary-fixed text-on-primary-fixed px-10 py-5 rounded-xl font-bold text-lg active:scale-95 transition-all">Começar Teste Grátis Agora</Link>
               <button className="border border-white/30 text-white px-10 py-5 rounded-xl font-bold text-lg hover:bg-white/10 active:scale-95 transition-all">Falar com Consultor</button>
@@ -216,8 +216,8 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-10 py-12 max-w-7xl mx-auto">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <img src="/logo1.png" alt="Brokerfield Logo" className="h-10 w-auto object-contain" />
-              <span className="font-display-lg text-2xl font-extrabold text-primary">Brokerfield</span>
+              <img src="/logo1.png" alt="Brokercloud Logo" className="h-10 w-auto object-contain" />
+              <span className="font-display-lg text-2xl font-extrabold text-primary">Brokercloud</span>
             </div>
             <p className="font-body-md text-sm text-on-surface-variant max-w-sm">
               A plataforma inteligente que redefine como corretores de alta performance gerenciam seus clientes e fecham negócios milionários.
@@ -248,7 +248,7 @@ export default function LandingPage() {
         </div>
         <div className="px-4 md:px-10 py-6 border-t border-outline-variant/10 max-w-7xl mx-auto text-center md:text-left">
           <p className="font-body-md text-sm text-on-surface-variant">
-            © {new Date().getFullYear()} Brokerfield CRM. Todos os direitos reservados.
+            © {new Date().getFullYear()} Brokercloud CRM. Todos os direitos reservados.
           </p>
         </div>
       </footer>

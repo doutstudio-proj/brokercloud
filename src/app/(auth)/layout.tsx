@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brokerfield — Acesso",
-  description: "Faça login ou crie sua conta no Brokerfield",
+  title: "Brokercloud — Acesso",
+  description: "Faça login ou crie sua conta no Brokercloud",
 };
 
 export default function AuthLayout({

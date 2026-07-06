@@ -10,12 +10,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      # As variáveis do seu .env entrarão aqui na build, ou podem ser injetadas
       - DATABASE_URL=postgresql://postgres:brokercloud_secure_pwd@db:5432/brokercloud?schema=public
       - REDIS_URL=redis://redis:6379
       - NODE_ENV=production
     env_file:
-      - .env
+      - .env.production
     depends_on:
       db:
         condition: service_healthy

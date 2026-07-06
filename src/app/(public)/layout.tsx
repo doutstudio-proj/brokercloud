@@ -9,7 +9,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Brokerfield - Transforme conversas em Vendas Milionárias",
+  title: "Brokercloud - Transforme conversas em Vendas Milionárias",
   description: "O único CRM focado em inteligência artificial que organiza seu WhatsApp, cria apresentações impecáveis e automatiza seu funil de vendas.",
 };
 

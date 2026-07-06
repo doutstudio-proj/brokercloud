@@ -419,7 +419,7 @@ export default function SettingsPage() {
                         Conexões WhatsApp
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                        Gerencie seus números de WhatsApp conectados ao Brokerfield. 
+                        Gerencie seus números de WhatsApp conectados ao Brokercloud. 
                         ({currentInstancesCount} de {maxInstances} permitidos)
                       </p>
                     </div>

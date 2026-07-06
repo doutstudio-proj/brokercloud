@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brokerfield - Dashboard de Corretor",
+  title: "Brokercloud - Dashboard de Corretor",
   description: "Premium Real Estate CRM",
 };
 

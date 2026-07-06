@@ -84,7 +84,7 @@ function ResetPasswordForm() {
           >
             <Building2 size={20} color="white" />
           </div>
-          <span className="text-gray-900 font-bold text-xl">Brokerfield</span>
+          <span className="text-gray-900 font-bold text-xl">Brokercloud</span>
         </div>
 
         {success ? (

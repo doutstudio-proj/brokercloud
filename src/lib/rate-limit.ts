@@ -1,5 +1,5 @@
 /**
- * Rate Limiter Centralizado — Brokerfield
+ * Rate Limiter Centralizado — Brokercloud
  *
  * Suporta 3 modos com prioridade automática via env vars:
  *
@@ -107,7 +107,7 @@ function createLimiter(limit: number, window: RLWindow): Ratelimit {
       }),
       limiter: Ratelimit.slidingWindow(limit, window),
       analytics: true,
-      prefix: 'Brokerfield:rl',
+      prefix: 'Brokercloud:rl',
     });
   }
 
@@ -116,7 +116,7 @@ function createLimiter(limit: number, window: RLWindow): Ratelimit {
     return new Ratelimit({
       redis: createIoRedisAdapter(process.env.REDIS_URL) as any,
       limiter: Ratelimit.slidingWindow(limit, window),
-      prefix: 'Brokerfield:rl',
+      prefix: 'Brokercloud:rl',
     });
   }
 
@@ -125,7 +125,7 @@ function createLimiter(limit: number, window: RLWindow): Ratelimit {
     redis: null as any,
     limiter: Ratelimit.slidingWindow(limit, window),
     ephemeralCache,
-    prefix: 'Brokerfield:rl',
+    prefix: 'Brokercloud:rl',
   });
 }
 

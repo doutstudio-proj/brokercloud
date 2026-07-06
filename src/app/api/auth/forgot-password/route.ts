@@ -41,12 +41,12 @@ export async function POST(request: Request) {
     const resetUrl = `${appUrl}/reset-password?token=${resetToken}`;
 
     const { error: emailError } = await resend.emails.send({
-      from: "Brokerfield <onboarding@resend.dev>", // E-mail de testes gratuito do Resend
+      from: "Brokercloud <onboarding@resend.dev>", // E-mail de testes gratuito do Resend
       to: broker.email,
-      subject: "Redefinição de Senha - Brokerfield",
+      subject: "Redefinição de Senha - Brokercloud",
       html: `
         <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; color: #333;">
-          <h2 style="color: #0a6136;">Brokerfield</h2>
+          <h2 style="color: #0a6136;">Brokercloud</h2>
           <p>Você solicitou a redefinição de sua senha.</p>
           <p>Clique no botão abaixo para criar uma nova senha. Este link é válido por 1 hora.</p>
           <a href="${resetUrl}" style="display: inline-block; background-color: #0a6136; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; margin-top: 16px; margin-bottom: 16px;">

@@ -40,7 +40,7 @@ export function Sidebar({ planId = 'TRIAL', trialEndsAt }: SidebarProps) {
       <div className="flex items-center gap-3 px-2 mb-6 mt-2">
         <img src="/logo1.png" alt="Broker Logo" className="h-10 w-auto object-contain" />
         <div className="flex flex-col">
-          <span className="font-display-lg text-xl font-black tracking-tight leading-none text-gray-800 dark:text-gray-100">Brokerfield</span>
+          <span className="font-display-lg text-xl font-black tracking-tight leading-none text-gray-800 dark:text-gray-100">Brokercloud</span>
           <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">CRM Imobiliário</span>
         </div>
       </div>
