@@ -49,18 +49,12 @@ function createIoRedisAdapter(url: string) {
 
   return {
     // Executa script Lua (usado pelo sliding window)
-    async eval(
-      script: string,
-      { keys = [], arguments: args = [] }: { keys?: string[]; arguments?: string[] }
-    ) {
+    async eval(script: string, keys: string[] = [], args: string[] = []) {
       return client.eval(script, keys.length, ...keys, ...args);
     },
 
     // Executa script Lua otimizado (evalsha - exigido pelas novas versões do ratelimit)
-    async evalsha(
-      sha: string,
-      { keys = [], arguments: args = [] }: { keys?: string[]; arguments?: string[] }
-    ) {
+    async evalsha(sha: string, keys: string[] = [], args: string[] = []) {
       return client.evalsha(sha, keys.length, ...keys, ...args);
     },
 
