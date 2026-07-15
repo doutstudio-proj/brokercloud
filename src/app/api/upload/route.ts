@@ -7,9 +7,24 @@ import { limiters, applyRateLimit } from '@/lib/rate-limit';
 const uploadSchema = z.object({
   base64Data: z.string().min(1),
   fileName: z.string().min(1).max(255).regex(/^[a-zA-Z0-9._\-\s()\[\]{},&!'áàãâéêíóôõúçÁÀÃÂÉÊÍÓÔÕÚÇ+@#~%=]+$/, 'Nome de arquivo contém caracteres inválidos'),
-  mimeType: z.string().refine((val) =>
-    val.startsWith('image/') || val.startsWith('application/pdf'),
-    { message: "Apenas imagens e PDFs são permitidos" }
+  mimeType: z.string().refine((val: string) =>
+    val.startsWith('image/') ||
+    val.startsWith('video/') ||
+    val.startsWith('audio/') ||
+    val.startsWith('application/pdf') ||
+    val === 'application/msword' ||
+    val === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    val === 'application/vnd.ms-excel' ||
+    val === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+    val === 'application/vnd.ms-powerpoint' ||
+    val === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ||
+    val === 'text/plain' ||
+    val === 'text/csv' ||
+    val === 'application/zip' ||
+    val === 'application/x-zip-compressed' ||
+    val === 'application/x-rar-compressed' ||
+    val === 'application/x-7z-compressed',
+    { message: "Tipo de arquivo não permitido. Apenas imagens, áudios, vídeos e documentos comuns são permitidos." }
   ),
   folder: z.string().optional(),
 });

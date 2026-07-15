@@ -39,17 +39,17 @@ export async function POST(request: Request) {
     
     // 1. Instância solicitada pelo frontend
     if (instanceId) {
-      targetInstance = lead.broker.whatsappInstances.find(i => i.id === instanceId);
+      targetInstance = lead.broker.whatsappInstances.find((i: any) => i.id === instanceId);
     }
     
     // 2. Instância que o lead mandou mensagem por último
     if (!targetInstance && lead.whatsappInstanceId) {
-      targetInstance = lead.broker.whatsappInstances.find(i => i.id === lead.whatsappInstanceId);
+      targetInstance = lead.broker.whatsappInstances.find((i: any) => i.id === lead.whatsappInstanceId);
     }
     
     // 3. Fallback para a primeira instância conectada
     if (!targetInstance) {
-      targetInstance = lead.broker.whatsappInstances.find(i => i.status === 'open' || i.status === 'CONNECTED');
+      targetInstance = lead.broker.whatsappInstances.find((i: any) => i.status === 'open' || i.status === 'CONNECTED');
     }
 
     if (!targetInstance) {
@@ -89,8 +89,44 @@ export async function POST(request: Request) {
       };
 
       if (mappedType === "document") {
-        payload.fileName = "Apresentacao_Imovel.pdf";
-        payload.mimetype = "application/pdf";
+        let fileName = "Apresentacao_Imovel.pdf";
+        let mimetype = "application/pdf";
+        try {
+          const urlDecoded = decodeURIComponent(mediaUrl);
+          const urlParts = urlDecoded.split('/');
+          const lastPart = urlParts[urlParts.length - 1]; // ex: 1734567890_contrato.docx
+          if (lastPart) {
+            fileName = lastPart.replace(/^\d+_/, '');
+            const extension = fileName.split('.').pop()?.toLowerCase();
+            if (extension === 'pdf') mimetype = 'application/pdf';
+            else if (extension === 'doc') mimetype = 'application/msword';
+            else if (extension === 'docx') mimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+            else if (extension === 'xls') mimetype = 'application/vnd.ms-excel';
+            else if (extension === 'xlsx') mimetype = 'application/vnd.openxmlformats-officedocument.spreadsheetml-sheet';
+            else if (extension === 'ppt') mimetype = 'application/vnd.ms-powerpoint';
+            else if (extension === 'pptx') mimetype = 'application/vnd.openxmlformats-officedocument.presentationml-presentation';
+            else if (extension === 'txt') mimetype = 'text/plain';
+            else if (extension === 'csv') mimetype = 'text/csv';
+            else if (extension === 'zip') mimetype = 'application/zip';
+            else if (extension === 'rar') mimetype = 'application/x-rar-compressed';
+            else if (extension === '7z') mimetype = 'application/x-7z-compressed';
+          }
+        } catch (e) {
+          console.error("Erro ao processar metadata do documento:", e);
+        }
+        payload.fileName = fileName;
+        payload.mimetype = mimetype;
+      } else if (mappedType === "audio") {
+        let audioMime = "audio/ogg; codecs=opus";
+        try {
+          const urlDecoded = decodeURIComponent(mediaUrl).toLowerCase();
+          if (urlDecoded.endsWith('.mp3')) audioMime = "audio/mpeg";
+          else if (urlDecoded.endsWith('.wav')) audioMime = "audio/wav";
+          else if (urlDecoded.endsWith('.m4a')) audioMime = "audio/x-m4a";
+          else if (urlDecoded.endsWith('.mp4')) audioMime = "audio/mp4";
+        } catch (e) {}
+          payload.mimetype = audioMime;
+          payload.ptt = true;
       }
     }
 
