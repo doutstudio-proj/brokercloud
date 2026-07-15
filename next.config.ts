@@ -13,7 +13,10 @@ const nextConfig: NextConfig = {
     '*.trycloudflare.com',
     '*.free.pinggy.net',
     'localhost:3000'
-  ]
+  ],
+  experimental: {
+    middlewareClientMaxBodySize: '50mb'
+  }
 };
 
 export default nextConfig;
